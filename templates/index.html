@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Disease Prediction App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .column {
+      flex: 1 1 22%;
+      max-width: 22%;
+    }
+
+    .symptom {
+      margin-bottom: 10px;
+    }
+
+    button {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 30px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 20px;
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .column {
+        flex: 1 1 45%;
+        max-width: 45%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .column {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Disease Prediction App</h1>
+
+    <form method="POST" action="/predict">
+      {% for i in range(0, symptoms|length, (symptoms|length // 4) + 1) %}
+        <div class="column">
+          {% for symptom in symptoms[i:i+(symptoms|length // 4) + 1] %}
+            <div class="symptom">
+              <label>
+                <input type="checkbox" name="symptoms" value="{{ symptom }}">
+                {{ symptom.replace('_', ' ').title() }}
+              </label>
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+
+      <button type="submit">Predict Disease</button>
+    </form>
+
+    {% if prediction %}
+      <div class="result">Predicted Disease: {{ prediction }}</div>
+    {% endif %}
+  </div>
+</body>
+</html>
