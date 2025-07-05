@@ -63,11 +63,7 @@ python app.py
 http://127.0.0.1:5000/
 ```
 
----
-
-## 📸 Screenshots
-
-*Add screenshots here if required for submission or demonstration.*
+--
 
 ---
 
